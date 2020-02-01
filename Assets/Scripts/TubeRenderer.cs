@@ -55,7 +55,7 @@ public class TubeRenderer : MonoBehaviour
 
     void Update()
     {
-        GenerateMesh();
+        //GenerateMesh();
     }
 
     private void OnValidate()
@@ -201,7 +201,9 @@ public class TubeRenderer : MonoBehaviour
             var x = Mathf.Cos(angle);
             var y = Mathf.Sin(angle);
 
-            circle[i] = _positions[index] + side * x * radius + up * y * radius;
+            float rRand = radius + Random.Range(-0.02f, 0.02f);
+
+            circle[i] = _positions[index] + side * x * rRand + up * y * rRand;
 
             angle += angleStep;
         }
