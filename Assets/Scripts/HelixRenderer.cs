@@ -37,6 +37,15 @@ public class HelixRenderer : MonoBehaviour
         tubeRendererBlue.SetPositions(positionsBlue);
         tubeRendererRed.SetPositions(positionsRed);
 
+        // Set tube colliders.
+        if (Application.isPlaying)
+        {
+            tubeRendererBlue.gameObject.GetComponent<MeshCollider>().sharedMesh =
+                tubeRendererBlue.gameObject.GetComponent<MeshFilter>().mesh;
+            tubeRendererRed.gameObject.GetComponent<MeshCollider>().sharedMesh =
+                tubeRendererRed.gameObject.GetComponent<MeshFilter>().mesh;
+        }
+
         // Make the base pairs. Each pair has the same x value.
         float pairStep = 0.5f;
         int npairs = (int)(length / pairStep);
