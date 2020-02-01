@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class HelixRenderer : MonoBehaviour
 {
     HelixCurve curve;
@@ -52,8 +52,10 @@ public class HelixRenderer : MonoBehaviour
         for (float x = 0; x < length; x += pairStep)
         {
             Vector3[] positions = { curve.Ft(x), curve.Ft(x, Mathf.PI) };
-            TubeRenderer tb = Instantiate(pairPrefab, transform).GetComponent<TubeRenderer>();
-            tb.SetPositions(positions);
+            Vector3 direction = positions[1] - positions[0];
+            GameObject tb = Instantiate(pairPrefab, positions[1],
+                Quaternion.LookRotation(direction, Vector3.up), transform);
+            tb.transform.localScale = new Vector3(tb.transform.localScale.x, tb.transform.localScale.y, direction.magnitude);
         }
     }
 
