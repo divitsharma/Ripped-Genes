@@ -8,6 +8,11 @@ public class HelixCurve : MonoBehaviour
     public float yr;
     public float c;
 
+    public Vector3 Ft(float t, float offset = 0f)
+    {
+        return new Vector3(x(t), y(t + offset), z(t + offset));
+    }
+
     public float x(float t)
     {
         return c * t;
@@ -32,9 +37,9 @@ public class HelixCurve : MonoBehaviour
         for (float t = 0; t < twopi; t += 0.02f)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(new Vector3(x(t), y(t), z(t)), 0.1f);
+            Gizmos.DrawSphere(Ft(t), 0.1f);
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(new Vector3(x(t), y(t + Mathf.PI), z(t + Mathf.PI)), 0.1f);
+            Gizmos.DrawSphere(Ft(t, Mathf.PI), 0.1f);
         }
     }
 }
