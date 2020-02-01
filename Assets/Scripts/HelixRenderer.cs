@@ -9,7 +9,7 @@ public class HelixRenderer : MonoBehaviour
     public TubeRenderer tubeRendererBlue;
     public TubeRenderer tubeRendererRed;
 
-    public Material pairMaterial;
+    public GameObject pairPrefab;
 
     void Start()
     {
@@ -43,9 +43,8 @@ public class HelixRenderer : MonoBehaviour
         for (float x = 0; x < length; x += pairStep)
         {
             Vector3[] positions = { curve.Ft(x), curve.Ft(x, Mathf.PI) };
-            TubeRenderer tb = gameObject.AddComponent<TubeRenderer>();
+            TubeRenderer tb = Instantiate(pairPrefab, transform).GetComponent<TubeRenderer>();
             tb.SetPositions(positions);
-            tb.material = pairMaterial;
         }
     }
 

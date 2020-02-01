@@ -9,7 +9,7 @@ public class TubeRenderer : MonoBehaviour
 {
     [SerializeField] Vector3[] _positions;
     [SerializeField] int _sides;
-    [SerializeField] float _radiusOne = 0.1f;
+    [SerializeField] float _radiusOne;
     [SerializeField] float _radiusTwo;
     [SerializeField] bool _useWorldSpace = true;
     [SerializeField] bool _useTwoRadii = false;
