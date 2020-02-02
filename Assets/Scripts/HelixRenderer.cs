@@ -5,15 +5,20 @@ using UnityEngine;
 //[ExecuteInEditMode]
 public class HelixRenderer : MonoBehaviour
 {
+    // Methematical equation of the helix.
     HelixCurve curve;
+    // Meshes of the two strands.
     public TubeRenderer tubeRendererBlue;
     public TubeRenderer tubeRendererRed;
 
     public GameObject pairPrefab;
 
+    GameState gameState;
+
     void Start()
     {
-        curve = GameObject.FindObjectOfType<HelixCurve>();
+        curve = FindObjectOfType<HelixCurve>();
+        gameState = FindObjectOfType<GameState>();
 
         RenderHelix();
     }
@@ -56,6 +61,9 @@ public class HelixRenderer : MonoBehaviour
             GameObject tb = Instantiate(pairPrefab, positions[1],
                 Quaternion.LookRotation(direction, Vector3.up), transform);
             tb.transform.localScale = new Vector3(tb.transform.localScale.x, tb.transform.localScale.y, direction.magnitude);
+            // Add to game state.
+            BasePair basePair = tb.GetComponent<BasePair>();
+            gameState.AddBasePair(basePair);
         }
     }
 

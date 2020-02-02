@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum PairType
+{
+    AT,
+    GC
+}
+
 public class BasePair : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float maxHealth = 100;
 
-    // Update is called once per frame
-    void Update()
+    PairType type;
+    float health;
+
+    private void Start()
     {
-        
+        health = maxHealth;
     }
 }
