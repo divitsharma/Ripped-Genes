@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     protected bool onBasePair = false;
     protected BasePairElement onBP;
 
+    public int energyStore;
+    public int energyReqd;
+
     private void Start()
     {
         Speed = MaxSpeed;
@@ -37,5 +40,13 @@ public class Player : MonoBehaviour
     public virtual void DoAction()
     {
 
+    }
+
+    public void getEnergy() {
+        energyStore++;
+    }
+
+    public void useEnergy() {
+        energyStore -= energyReqd;
     }
 }
