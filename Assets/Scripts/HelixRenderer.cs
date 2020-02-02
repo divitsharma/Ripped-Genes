@@ -12,8 +12,13 @@ public class HelixRenderer : MonoBehaviour
     public TubeRenderer tubeRendererRed;
 
     public GameObject pairPrefab;
+    public Quaternion rotation;
+    public Vector3 position;
+
+    public int lengthInPI = 5;
 
     GameState gameState;
+
 
     void Start()
     {
@@ -21,11 +26,15 @@ public class HelixRenderer : MonoBehaviour
         gameState = FindObjectOfType<GameState>();
 
         RenderHelix();
+
+        // Apply the parent's rotation and stuff to the children.
+        transform.localRotation = rotation;
+        transform.localPosition = position;
     }
 
     void RenderHelix()
     {
-        float length = 5 * Mathf.PI;
+        float length = lengthInPI * Mathf.PI;
         float step = 0.05f;
         int npos = (int)(length / step);
         Vector3[] positionsBlue = new Vector3[npos];
