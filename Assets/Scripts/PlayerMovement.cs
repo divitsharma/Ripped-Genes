@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    player.DoAction();
+                    if (player.useEnergy()) player.DoAction();
                 }
                 else
                 {
@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    player.DoAction();
+                    if (player.useEnergy()) player.DoAction();
                 }
                 else
                 {
