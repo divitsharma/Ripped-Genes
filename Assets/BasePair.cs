@@ -11,13 +11,19 @@ public enum PairType
 
 public class BasePair : MonoBehaviour
 {
-    public float maxHealth = 100;
-
     PairType type;
     float health;
 
+    public GameObject first;
+    public GameObject second;
+
+
     private void Start()
     {
-        health = maxHealth;
+    }
+
+    private void Update()
+    {
+
     }
 }
