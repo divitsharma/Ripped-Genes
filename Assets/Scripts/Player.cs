@@ -56,13 +56,16 @@ public class Player : MonoBehaviour
 
     }
 
+    public void useEnergy(float energyUsed) {
+        energyStore -= energyUsed;
+    }
+
     public void getEnergy() {
         energyStore += ATPEnergy;
     }
 
-    public bool useEnergy() {
+    public bool hasEnergy() {
         if (energyStore >= energyReqd) {
-            energyStore -= energyReqd;
             return true;
         } else return false;
     }
