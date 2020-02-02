@@ -30,7 +30,7 @@ public class HelixCurve : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        float twopi = 3 * Mathf.PI;
+        float twopi = 5 * Mathf.PI;
 
         float zoffset = zr;
 

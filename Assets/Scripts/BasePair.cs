@@ -14,16 +14,16 @@ public class BasePair : MonoBehaviour
     PairType type;
     float health;
 
-    public GameObject first;
-    public GameObject second;
+    public BasePairElement first;
+    public BasePairElement second;
 
 
     private void Start()
     {
     }
 
-    private void Update()
+    public bool IsBroken()
     {
-
+        return first.Health > 0 && second.Health > 0;
     }
 }

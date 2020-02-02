@@ -25,7 +25,7 @@ public class HelixRenderer : MonoBehaviour
 
     void RenderHelix()
     {
-        float length = 3 * Mathf.PI;
+        float length = 5 * Mathf.PI;
         float step = 0.05f;
         int npos = (int)(length / step);
         Vector3[] positionsBlue = new Vector3[npos];

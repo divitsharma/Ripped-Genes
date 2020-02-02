@@ -8,9 +8,11 @@ public class BasePairElement : MonoBehaviour
     public bool isBeingAttacked = false;
 
     PairType type;
-    public float health;
+    private float health;
+    public float Health { get => health; }
 
     Material materialInstance;
+
 
     private void Start()
     {
