@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isEnemy;
 
+    public float minClamp = 5f;
+    public float maxClamp = 10f;
+
 
     // Side flipping animation
 
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startPos;
     private Vector3 endPos;
     private float journeyLength;
+
 
     HelixCurve curve;
 
@@ -157,19 +161,18 @@ public class PlayerMovement : MonoBehaviour
                 // Calculate direction to a
                 // transform pos by a.norm * speed
                 tState -= player.Speed * Time.deltaTime;
-                curveInc = curve.Ft(tState, offset);                
                 break;
             case "right" :
                 tState += player.Speed * Time.deltaTime;
-                curveInc = curve.Ft(tState, offset);
                 break;
-            
         }
+        tState = Mathf.Clamp(tState, minClamp * Mathf.PI, maxClamp * Mathf.PI);
+        curveInc = curve.Ft(tState, offset);
 
         // On the right side
         transform.position = curveInc;
         //this.transform.position = Vector3.Slerp(this.transform.position, curveInc, player.Speed * Time.deltaTime);
-        this.transform.rotation = Quaternion.FromToRotation(this.transform.up, curveInc.normalized);
+        // this.transform.rotation = Quaternion.FromToRotation(this.transform.up, curveInc.normalized);
     }
 
     private void flip() {
