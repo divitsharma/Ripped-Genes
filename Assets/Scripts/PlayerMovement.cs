@@ -43,8 +43,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 curvePos = curve.Ft(tState, offset);
 
         this.transform.position = curvePos;        
-        Debug.Log(this.transform.position);
-        Debug.Log(curvePos);
+        //Debug.Log(this.transform.position);
+        //Debug.Log(curvePos);
 
     }
 
@@ -57,43 +57,59 @@ public class PlayerMovement : MonoBehaviour
                 offset = 0;
             }
             if (isEnemy) {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    this.updatePosition("up");
+                    GetComponent<Player>().DoAction();
                 }
-                else if (Input.GetKey(KeyCode.S))
+                else
                 {
-                    this.updatePosition("down");
-                }
-                if (Input.GetKey(KeyCode.D))
-                {
-                    this.updatePosition("right");
-                    Debug.Log("right clicked");
-                }
-                else if (Input.GetKey(KeyCode.A))
-                {
-                    this.updatePosition("left");
-                    Debug.Log("left clicked");
+
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        this.updatePosition("up");
+                    }
+                    else if (Input.GetKey(KeyCode.S))
+                    {
+                        this.updatePosition("down");
+                    }
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        this.updatePosition("right");
+                        //Debug.Log("right clicked");
+                    }
+                    else if (Input.GetKey(KeyCode.A))
+                    {
+                        this.updatePosition("left");
+                        //Debug.Log("left clicked");
+                    }
+
                 }
             } else {
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (Input.GetKey(KeyCode.RightControl))
                 {
-                    this.updatePosition("up");
+                    GetComponent<Player>().DoAction();
                 }
-                else if (Input.GetKey(KeyCode.DownArrow))
+                else
                 {
-                    this.updatePosition("down");
-                }
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        this.updatePosition("up");
+                    }
+                    else if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        this.updatePosition("down");
+                    }
 
-                if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    this.updatePosition("right");
-                    Debug.Log("right clicked");
-                }
-                else if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    this.updatePosition("left");
-                    Debug.Log("left clicked");
+                    if (Input.GetKey(KeyCode.RightArrow))
+                    {
+                        this.updatePosition("right");
+                        //Debug.Log("right clicked");
+                    }
+                    else if (Input.GetKey(KeyCode.LeftArrow))
+                    {
+                        this.updatePosition("left");
+                        //Debug.Log("left clicked");
+                    }
                 }
             }
         }

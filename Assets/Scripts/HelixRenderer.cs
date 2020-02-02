@@ -52,7 +52,7 @@ public class HelixRenderer : MonoBehaviour
         }
 
         // Make the base pairs. Each pair has the same x value.
-        float pairStep = 0.5f;
+        float pairStep = 0.75f;
         int npairs = (int)(length / pairStep);
         for (float x = 0; x < length; x += pairStep)
         {

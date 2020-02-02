@@ -20,7 +20,7 @@ public class BasePairElement : MonoBehaviour
 
     private void Update()
     {
-        if (isBeingAttacked)
+        if (health < maxHealth)
         {
             // Start pulsing.
             materialInstance.SetFloat("Vector1_5AF52C91", 0f);
@@ -32,5 +32,22 @@ public class BasePairElement : MonoBehaviour
         }
 
         materialInstance.SetFloat("Vector1_27734CA3", 1f - (health / maxHealth));
+
+        if  (health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (health > 0)
+            health -= damage;
+    }
+
+    public void Repair(float damage)
+    {
+        if (health < maxHealth)
+            health += damage;
     }
 }
