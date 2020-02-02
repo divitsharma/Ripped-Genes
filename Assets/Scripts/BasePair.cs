@@ -24,6 +24,6 @@ public class BasePair : MonoBehaviour
 
     public bool IsBroken()
     {
-        return first.Health > 0 && second.Health > 0;
+        return first.Health < first.maxHealth && second.Health < second.maxHealth;
     }
 }

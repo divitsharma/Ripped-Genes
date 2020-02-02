@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -25,8 +26,11 @@ public class GameState : MonoBehaviour
 
     private void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        second -= Time.deltaTime;
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+            second -= Time.deltaTime;
+        }
 
         if (second <= 0)
         {
@@ -34,9 +38,14 @@ public class GameState : MonoBehaviour
             //Debug.Log((int)timeRemaining);
             second = 1f;
         }
+
+        if (timeRemaining <= 0)
+        {
+            StartCoroutine("GameOver");
+        }
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
         int nBps = basePairs.Count;
         int nBroken = 0;
@@ -56,5 +65,10 @@ public class GameState : MonoBehaviour
         {
             Debug.Log("The virus lost!");
         }
+
+        yield return new WaitForSeconds(3);
+
+        SceneManager.LoadScene(0);
     }
+
 }
