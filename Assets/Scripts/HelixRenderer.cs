@@ -12,6 +12,10 @@ public class HelixRenderer : MonoBehaviour
     public TubeRenderer tubeRendererRed;
 
     public GameObject pairPrefab;
+    public GameObject barrierProtein;
+    public float minClamp;
+    public float maxClamp;
+
     public Quaternion rotation;
     public Vector3 position;
 
@@ -74,6 +78,17 @@ public class HelixRenderer : MonoBehaviour
             BasePair basePair = tb.GetComponent<BasePair>();
             gameState.AddBasePair(basePair);
         }
+
+        // Make barrier proteins
+        Vector3[] positions2 = { curve.Ft(minClamp * Mathf.PI), curve.Ft(minClamp * Mathf.PI, Mathf.PI), curve.Ft(maxClamp * Mathf.PI), curve.Ft(maxClamp * Mathf.PI, Mathf.PI)};
+        Vector3 direction1 = positions2[1] - positions2[0];
+        Vector3 direction2 = positions2[3] - positions2[2];
+        GameObject bp1 = Instantiate(barrierProtein, positions2[0], Quaternion.LookRotation(direction1, Vector3.up), transform);
+        GameObject bp2 = Instantiate(barrierProtein, positions2[1], Quaternion.LookRotation(-1 * direction1, Vector3.up), transform);
+        GameObject bp3 = Instantiate(barrierProtein, positions2[2], Quaternion.LookRotation(direction2, Vector3.up), transform);
+        GameObject bp4 = Instantiate(barrierProtein, positions2[3], Quaternion.LookRotation(-1 * direction2, Vector3.up), transform);
+
+
     }
 
 }
