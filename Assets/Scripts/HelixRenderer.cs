@@ -76,6 +76,7 @@ public class HelixRenderer : MonoBehaviour
             tb.transform.localScale = new Vector3(tb.transform.localScale.x, tb.transform.localScale.y, direction.magnitude);
             // Add to game state.
             BasePair basePair = tb.GetComponent<BasePair>();
+            if (gameState != null)
             gameState.AddBasePair(basePair);
         }
 
