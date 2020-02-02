@@ -17,14 +17,19 @@ public class OrthoCamera : MonoBehaviour
     [SerializeField]
     float zoomSpeed = 20f;
 
+    public float edgePadding;
+    public float minDist;
+    public float maxDist;
     Camera camera2;
 
     float minPosition; // left border
     float maxPosition; //  right border
 
+
     void Awake () 
     {
         camera2 = GetComponent<Camera>();
+        camera2.transform.position = new Vector3(camera2.transform.position.x, camera2.transform.position.y, - 10);
     }
 
     void LateUpdate()
@@ -70,15 +75,26 @@ public class OrthoCamera : MonoBehaviour
     }
 
     public float calculateZ() {
-        float left = viewportLeft(camera2, targets[0]);
-        float right = viewportRight(camera2, targets[0]);
+        float left = viewportLeft(camera2, targets[0].transform);
+        float right = viewportRight(camera2, targets[0].transform);
+        Debug.Log("viewport" + Mathf.Abs(right - left));
+        float dist = Mathf.Clamp(targets[0].transform.position.z - camera2.transform.position.z, minDist, maxDist);
+        float theta = Mathf.Atan2(Mathf.Abs(right - left) / 2, dist);
+        // Calculate width of targets
+        float minX = Mathf.Infinity;
+        float maxX = Mathf.NegativeInfinity;
         foreach (Transform target in targets) {
             Vector3 position = target.position;
-            if (position.x < left || position.x > right) {
-
-            } 
+            minX = Mathf.Min(minX, position.x);
+            maxX = Mathf.Max(maxX, position.x);
         }
-        return 0f;
+
+        float distBetween = Mathf.Abs(maxX - minX) + edgePadding;
+        Debug.Log("player dist" + dist);
+        float newZ = camera2.transform.position.z * Mathf.Abs((distBetween / 2) / dist);
+        Debug.Log(newZ);
+
+        return camera2.transform.position.z;
     }
 
      public float viewportLeft(Camera c, Transform t) {
