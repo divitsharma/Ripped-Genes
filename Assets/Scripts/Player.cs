@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float MaxSpeed;
+    [HideInInspector] public float Speed;
     protected bool onBasePair = false;
     protected BasePairElement onBP;
+
+    private void Start()
+    {
+        Speed = MaxSpeed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

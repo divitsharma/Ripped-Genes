@@ -10,6 +10,7 @@ public class GoodPlayer : Player
         {
             //Debug.Log("Doin heals");
             onBP.Repair(50 * Time.deltaTime);
+            Speed = 0.1f * MaxSpeed;
         }
     }
 }

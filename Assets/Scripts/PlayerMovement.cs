@@ -9,7 +9,6 @@ public enum side {
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float Speed;
     public float step;
     public float tState = 0;
 
@@ -30,9 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
     HelixCurve curve;
 
+    Player player;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Player>();
         if (isEnemy) {
             curSide = side.B;
         }
@@ -60,8 +62,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    GetComponent<Player>().DoAction();
+                    player.DoAction();
                 }
+                else
+                {
+                    player.Speed = player.MaxSpeed;
+                }
+
                 if (Input.GetKey(KeyCode.W))
                 {
                     this.updatePosition("up");
@@ -85,8 +92,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    GetComponent<Player>().DoAction();
+                    player.DoAction();
                 }
+                else
+                {
+                    player.Speed = player.MaxSpeed;
+                }
+
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
                     this.updatePosition("up");
@@ -144,19 +156,20 @@ public class PlayerMovement : MonoBehaviour
                 // a = helixCurve(t.pos + step)
                 // Calculate direction to a
                 // transform pos by a.norm * speed
-                curveInc = curve.Ft(tState - step, offset);                
-                tState -= step;
+                tState -= player.Speed * Time.deltaTime;
+                curveInc = curve.Ft(tState, offset);                
                 break;
             case "right" :
-                curveInc = curve.Ft(tState + step, offset);
-                tState += step;
+                tState += player.Speed * Time.deltaTime;
+                curveInc = curve.Ft(tState, offset);
                 break;
             
         }
 
-            // On the right side
-            this.transform.position = Vector3.Slerp(this.transform.position, curveInc, Speed * Time.deltaTime);
-            this.transform.rotation = Quaternion.FromToRotation(this.transform.up, curveInc.normalized);
+        // On the right side
+        transform.position = curveInc;
+        //this.transform.position = Vector3.Slerp(this.transform.position, curveInc, player.Speed * Time.deltaTime);
+        this.transform.rotation = Quaternion.FromToRotation(this.transform.up, curveInc.normalized);
     }
 
     private void flip() {
