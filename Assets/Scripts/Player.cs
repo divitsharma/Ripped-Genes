@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     protected bool onBasePair = false;
     protected BasePairElement onBP;
 
-    public int energyStore;
-    public int energyReqd;
+    public float energyStore;
+    public float energyReqd;
+    public float ATPEnergy;
 
     private void Start()
     {
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
             Debug.Log("left");
             onBasePair = false;
             onBP = null;
+        }  else if (other.GetComponent<ATP>() != null) {
+            getEnergy();
         }
     }
 
@@ -43,10 +46,13 @@ public class Player : MonoBehaviour
     }
 
     public void getEnergy() {
-        energyStore++;
+        energyStore += ATPEnergy;
     }
 
-    public void useEnergy() {
-        energyStore -= energyReqd;
+    public bool useEnergy() {
+        if (energyStore >= energyReqd) {
+            energyStore -= energyReqd;
+            return true;
+        } else return false;
     }
 }
