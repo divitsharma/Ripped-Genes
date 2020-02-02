@@ -12,12 +12,11 @@ public class OrthoCamera : MonoBehaviour
     float boundingBoxPadding = 2f;
 
     [SerializeField]
-    float minimumOrthographicSize = 8f;
-
-    [SerializeField]
     float zoomSpeed = 20f;
 
     public float edgePadding;
+    public float ratio;
+
     public float minDist;
     public float maxDist;
     Camera camera2;
@@ -60,12 +59,6 @@ public class OrthoCamera : MonoBehaviour
 
         return Rect.MinMaxRect(minX - boundingBoxPadding, maxY + boundingBoxPadding, maxX + boundingBoxPadding, minY - boundingBoxPadding);
     }
-
-    /// <summary>
-    /// Calculates a camera position given the a bounding box containing all the targets.
-    /// </summary>
-    /// <param name="boundingBox">A Rect bounding box containg all targets.</param>
-    /// <returns>A Vector3 in the center of the bounding box.</returns>
     Vector3 CalculateCameraPosition(Rect boundingBox)
     {
         Vector2 boundingBoxCenter = boundingBox.center;
@@ -75,12 +68,6 @@ public class OrthoCamera : MonoBehaviour
     }
 
     public float calculateZ() {
-        float left = viewportLeft(camera2, targets[0].transform);
-        float right = viewportRight(camera2, targets[0].transform);
-        Debug.Log("viewport" + Mathf.Abs(right - left));
-        float dist = Mathf.Clamp(targets[0].transform.position.z - camera2.transform.position.z, minDist, maxDist);
-        float theta = Mathf.Atan2(Mathf.Abs(right - left) / 2, dist);
-        // Calculate width of targets
         float minX = Mathf.Infinity;
         float maxX = Mathf.NegativeInfinity;
         foreach (Transform target in targets) {
@@ -90,11 +77,9 @@ public class OrthoCamera : MonoBehaviour
         }
 
         float distBetween = Mathf.Abs(maxX - minX) + edgePadding;
-        Debug.Log("player dist" + dist);
-        float newZ = camera2.transform.position.z * Mathf.Abs((distBetween / 2) / dist);
-        Debug.Log(newZ);
+        float newZDist = Mathf.Clamp(distBetween / ratio, minDist, maxDist);
 
-        return camera2.transform.position.z;
+        return targets[0].position.z - newZDist;
     }
 
      public float viewportLeft(Camera c, Transform t) {
@@ -108,9 +93,7 @@ public class OrthoCamera : MonoBehaviour
 
         return c.ViewportToWorldPoint(new Vector3(1f, 1f, yFromCamera)).x;
     }
-
     
-
     public float NominalScreenHeightAt(Camera c, Transform t) {
         float yFromCamera = t.transform.position.z - c.transform.position.z;
 
