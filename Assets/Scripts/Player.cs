@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
+    public TMP_Text atp;
+
     public float MaxSpeed;
     [HideInInspector] public float Speed;
     protected bool onBasePair = false;
@@ -13,9 +16,15 @@ public class Player : MonoBehaviour
     public float energyReqd;
     public float ATPEnergy;
 
+    public GameObject ATPDie;
+
     private void Start()
     {
         Speed = MaxSpeed;
+    }
+    
+    private void Update() {
+        atp.text = "atp: " + energyStore;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +46,8 @@ public class Player : MonoBehaviour
             onBP = null;
         }  else if (other.GetComponent<ATP>() != null) {
             getEnergy();
+            other.gameObject.SetActive(false);
+            Instantiate(ATPDie, transform.position, transform.rotation);
         }
     }
 
