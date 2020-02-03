@@ -37,7 +37,7 @@ public class BasePairElement : MonoBehaviour
 
         if  (health <= 0)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

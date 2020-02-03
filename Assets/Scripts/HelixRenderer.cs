@@ -12,6 +12,8 @@ public class HelixRenderer : MonoBehaviour
     public TubeRenderer tubeRendererRed;
 
     public GameObject pairPrefab;
+    public GameObject pairPrefab2;
+
     public GameObject barrierProtein;
     public float minClamp;
     public float maxClamp;
@@ -71,7 +73,18 @@ public class HelixRenderer : MonoBehaviour
         {
             Vector3[] positions = { curve.Ft(x), curve.Ft(x, Mathf.PI) };
             Vector3 direction = positions[1] - positions[0];
-            GameObject tb = Instantiate(pairPrefab, positions[1],
+
+            float r = Random.Range(0f, 1f);
+            GameObject pf;
+            if (r > 0.5f)
+            {
+                pf = pairPrefab;
+            }
+            else
+            {
+                pf = pairPrefab2;
+            }
+            GameObject tb = Instantiate(pf, positions[1],
                 Quaternion.LookRotation(direction, Vector3.up), transform);
             tb.transform.localScale = new Vector3(tb.transform.localScale.x, tb.transform.localScale.y, direction.magnitude);
             // Add to game state.

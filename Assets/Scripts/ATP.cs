@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ATP : GeneratedItem
 {
+
+    float angle = 0.0f;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -14,6 +16,9 @@ public class ATP : GeneratedItem
     protected void Update()
     {
         base.Update();
+
+        angle += Time.deltaTime;
+        transform.Rotate(Vector3.right, angle);
     }
 
     
